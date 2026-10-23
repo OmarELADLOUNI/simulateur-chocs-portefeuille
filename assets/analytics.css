@@ -1,0 +1,7 @@
+.audience-banner{position:fixed;inset:auto 20px 20px auto;z-index:100;max-width:450px;padding:22px;border:1px solid #65735e;background:#171b18;color:#f1f0e9;box-shadow:0 15px 70px #0005;font:14px/1.6 'DM Sans',sans-serif}
+.audience-banner p{margin:0 0 16px}.audience-banner a{color:#b8e986;text-decoration:underline}
+.audience-banner>div{display:flex;gap:12px;flex-wrap:wrap}.audience-banner button{padding:9px 15px;cursor:pointer;border:1px solid #a2aaa1;background:transparent;color:#f1f0e9;font:600 13px 'DM Sans',sans-serif}
+.audience-banner button:hover,.audience-banner button:focus-visible{border-color:#b8e986;color:#b8e986}
+.privacy-content{max-width:850px;padding-top:65px;padding-bottom:80px}.privacy-content h1{font-size:clamp(36px,6vw,65px);margin-bottom:30px}.privacy-content h2{font-size:25px;margin:35px 0 15px}.privacy-content p,.privacy-content li{color:var(--muted);font-size:16px;line-height:1.9}.privacy-content a{color:var(--accent)}
+.footer-privacy{font-size:10px;text-transform:none;letter-spacing:0;color:var(--muted)}
+@media(max-width:600px){.audience-banner{inset:auto 12px 12px;max-width:none;padding:18px}.privacy-content{padding-top:40px}}

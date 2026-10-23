@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101311">
+  <title>Portfolio Stress Test | Omar EL ADLOUNI</title>
+  <meta name="description" content="Explorez les effets de scénarios sociaux, budgétaires et macroéconomiques sur les taux, les actions, l’euro et votre portefeuille, à partir de données Webstat, BCE et DBnomics.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/simulator.css">
+  <link rel="stylesheet" href="assets/journey.css">
+  <script src="assets/shared-shell.js" defer></script>
+  <script type="module" src="assets/simulator.js"></script>
+</head>
+<body>
+  <a class="skip" href="#portefeuille">Aller au portefeuille</a>
+  <header class="site-header"><div class="lab-header">
+      <a class="brand" href="https://omareladlouni.com/#accueil" aria-label="Omar EL ADLOUNI, accueil"><span class="brand-mark">OE</span><span>Omar EL ADLOUNI</span></a>
+      <button class="market-menu-toggle site-menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu</button>
+      <nav id="navigation" class="main-nav" aria-label="Navigation principale">
+        <a href="https://omareladlouni.com/#expertise">Expertise</a><a href="https://omareladlouni.com/#parcours">Parcours</a><a href="https://omareladlouni.com/#projet">Projets</a><a class="nav-contact" href="https://www.linkedin.com/in/omar-el-adlouni/" target="_blank" rel="noopener noreferrer">Contact</a><span class="market-nav-divider" aria-hidden="true"></span>
+        <a class="nav-project nav-market active" href="./" aria-current="page">Portfolio Stress Test</a><a class="nav-project nav-atelier" href="https://omareladlouni.com/modelisation/">Atelier Finance &amp; IA</a>
+      </nav>
+      <button class="theme-toggle icon-button" aria-label="Passer au thème clair"><span class="theme-icon" aria-hidden="true">◐</span></button>
+    </div>
+    <div class="market-ribbon" role="region" aria-label="Cotations des marchés mondiaux">
+      <div id="indices-feed" class="indices-loading"></div>
+      <span id="indices-status" class="visually-hidden" role="status" aria-live="polite">Connexion aux cotations…</span>
+      <button id="indices-retry" class="ribbon-retry" hidden aria-label="Réessayer le chargement des cotations">Réessayer</button>
+    </div>
+  </header>
+  <main>
+    <section class="lab-hero"><div><p class="eyebrow"><span class="signal"></span> Portfolio Stress Test</p><h1>Votre portefeuille.<em>À l’épreuve des marchés.</em></h1><p class="lead">Composez votre portefeuille, définissez une évolution des marchés, puis mesurez ses effets. Trois étapes pour relier vos décisions aux mécanismes financiers.</p><div class="hero-actions"><a class="button primary" href="#portefeuille">Composer mon portefeuille <span aria-hidden="true">↓</span></a><a class="github-link hero-source" href="https://github.com/OmarELADLOUNI/simulateur-chocs-portefeuille" target="_blank" rel="noopener noreferrer"><svg class="github-logo" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg><span>Open source sur GitHub · MIT</span></a></div></div></section>
+    <div class="journey-toolbar"><nav class="section-nav journey-nav" aria-label="Votre parcours de simulation">
+      <a href="#portefeuille" data-step="portefeuille" class="is-current" aria-current="step"><span class="step-number">01</span><span><span class="step-label">Mon portefeuille</span><span class="step-state">Modéré par défaut</span></span></a>
+      <a href="#simulation" data-step="simulation"><span class="step-number">02</span><span><span class="step-label">Mon scénario</span><span class="step-state">Hypothèses modifiables</span></span></a>
+      <a href="#analyse" data-step="analyse"><span class="step-number">03</span><span><span class="step-label">Mon analyse</span><span class="step-state">Effets en direct</span></span></a>
+    </nav><a class="method-nav-link" href="#methode" data-return="methode"><span>À propos du modèle</span>Méthode &amp; sources <span aria-hidden="true">↗</span></a></div>
+    <section class="portfolio-section journey-step" id="portefeuille" aria-labelledby="portfolio-title">
+      <div class="section-kicker"><div><p class="eyebrow">01 / Votre portefeuille</p><h2 id="portfolio-title">D’abord, que souhaitez-vous investir ?</h2></div><button class="button secondary" id="restore-saved" hidden>Reprendre ma simulation</button></div>
+      <p class="muted portfolio-intro">Créez votre propre composition ou partez d’une allocation type. Le portefeuille Modéré est sélectionné par défaut. Ajustez ensuite votre capital et vos expositions : ce sera le point de départ de votre analyse.</p>
+      <div class="composition-choice">
+        <button id="custom-portfolio" class="custom-composition-choice" aria-pressed="false"><span class="eyebrow">Composition personnalisée</span><strong>Créer ma propre composition</strong><span>Partez de 100 % de trésorerie et répartissez votre capital librement.</span><span class="choice-action" aria-hidden="true">Composer librement ↗</span></button>
+        <div class="choice-divider" aria-hidden="true"><span>ou</span></div>
+      <div class="portfolio-presets">
+        <div class="profiles-heading"><div><span class="eyebrow">Allocations types</span><h3>Votre point de départ.</h3></div><span class="sri-label" data-help="Le SRI réglementaire figure dans le DIC d’un produit identifié. Il ne se déduit pas du seul ratio actions/obligations. Ces compositions simulées n’ont pas de SRI officiel.">SRI : non attribué</span></div>
+        <div id="portfolio-profiles" class="portfolio-profiles" role="group" aria-label="Choisir une allocation type"></div>
+        <p id="portfolio-profile-status" class="small muted" role="status">Sélectionnez une allocation pour commencer.</p>
+        <p class="profiles-source small muted">Ratios actions/obligations inspirés des <a href="https://investor.vanguard.com/investment-products/mutual-funds/life-strategy-funds" target="_blank" rel="noopener">gammes LifeStrategy de Vanguard</a>. Adaptations aux expositions du simulateur, sans reproduction des fonds ni attribution de leur SRI.</p>
+      </div>
+      </div>
+      <div id="portfolio-editing">
+        <div id="composition-bar" class="composition-bar" aria-label="Répartition du portefeuille"></div><div id="composition-legend" class="composition-legend"></div>
+        <div class="portfolio-grid">
+          <div class="portfolio-editor">
+            <div class="portfolio-fields">
+              <label for="amount" data-help="Capital de référence du portefeuille, exprimé en euros. Les impacts calculés à l’étape 3 seront proportionnels à ce montant.">Capital investi (€)<input id="amount" type="number" min="1000" max="1000000000" step="any" value="1000000" required></label>
+              <label for="tenor" data-help="Plus une obligation est longue, plus sa valorisation est généralement sensible aux taux. Le calcul actualise chaque flux au rendement stressé.">Échéance des obligations françaises<select id="tenor"><option value="2">2 ans</option><option value="5">5 ans</option><option value="10" selected>10 ans</option><option value="30">30 ans</option></select></label>
+            </div>
+            <label class="check"><input id="hedge" type="checkbox"> Couvrir intégralement le change des expositions en USD</label><p class="small muted">Couverture simplifiée, sans coût ni rendement de couverture.</p>
+            <p class="small muted">Saisissez vos pourcentages ou déplacez les curseurs. Les autres positions s’ajustent au prorata pour conserver 100 %.</p>
+            <div id="allocation-fields"></div><p id="allocation-status" role="status"></p>
+            <button class="button" id="normalize">Rétablir mon point de départ</button>
+          </div>
+          <aside class="exposure-card" aria-label="Portrait de votre portefeuille">
+            <p class="eyebrow">Votre composition, en un regard</p><h3>Ce que vous détenez.</h3>
+            <div class="portfolio-overview"><div id="composition-ring" class="composition-ring" aria-label="Composition du portefeuille"></div><div><span class="eyebrow">Capital de référence</span><strong id="composition-capital">—</strong><p class="small muted">Répartition actuelle</p></div></div>
+            <div class="exposure-grid">
+              <article data-help="Part du capital allouée aux actions françaises, aux banques européennes, aux actions Europe et aux actions américaines."><span>Actions</span><strong id="exposure-equity">—</strong><small id="exposure-equity-amount"></small></article>
+              <article data-help="Part allouée aux obligations françaises, allemandes et au crédit de qualité ou à haut rendement."><span>Obligations &amp; crédit</span><strong id="exposure-bond">—</strong><small id="exposure-bond-amount"></small></article>
+              <article data-help="L’or est représenté par une exposition en dollars, convertie en euros selon votre choix de couverture."><span>Or</span><strong id="exposure-gold">—</strong><small id="exposure-gold-amount"></small></article>
+              <article data-help="Trésorerie en euros, sans rendement de dépôt dans le modèle."><span>Trésorerie</span><strong id="exposure-cash">—</strong><small id="exposure-cash-amount"></small></article>
+            </div>
+            <p id="composition-explanation"></p>
+          </aside>
+        </div>
+        <div class="step-actions"><div class="step-context"><strong>Vos modifications sont prises en compte automatiquement.</strong><p id="portfolio-feedback" role="status">Vous pouvez modifier votre composition à tout moment.</p></div><a class="button secondary" href="#simulation" data-return="simulation">Explorer les scénarios <span aria-hidden="true">↓</span></a></div>
+      </div>
+    </section>
+    <section class="journey-step" id="simulation" aria-labelledby="simulation-title">
+      <div class="section-kicker"><div><p class="eyebrow">02 / Votre scénario</p><h2 id="simulation-title">Quel environnement voulez-vous explorer ?</h2></div><button class="button" id="reset">Recommencer le scénario</button></div>
+      <p class="muted">Partez des dernières observations disponibles, puis choisissez une hypothèse. Réglez chaque mécanisme : l’analyse s’actualise automatiquement.</p>
+    <div class="data-strip" aria-label="Points de départ observés"><div><span class="datum-label" data-help="Taux de rendement à échéance constante de 10 ans publié par la Banque de France. Il sert au point de départ du scénario français.">Taux d’emprunt à 10 ans · France</span><strong id="live-oat" data-loading="true" aria-busy="true">—</strong><small id="live-oat-date">Chargement Webstat</small></div><div><span class="datum-label" data-help="Nombre de dollars pour un euro. Une baisse de ce taux favorise, toutes choses égales par ailleurs, la valeur en euros des actifs en dollars non couverts.">Valeur d’un euro en dollars</span><strong id="live-fx" data-loading="true" aria-busy="true">—</strong><small id="live-fx-date">Chargement Webstat</small></div><div><span class="datum-label" data-help="Écart des taux longs de convergence, calculé à date commune sur des moyennes mensuelles. Ce n’est pas le spread quotidien de deux obligations cotées.">Écart de taux France–Allemagne</span><strong id="live-spread" data-loading="true" aria-busy="true">—</strong><small id="live-spread-date">Comparaison mensuelle à date commune</small></div><p id="data-status" data-loading="true" aria-busy="true" role="status">Connexion aux observations officielles…</p></div>
+      <details id="starting-curve" class="starting-curve"><summary>Voir les taux français à 2, 5, 10 et 30 ans</summary><p class="small muted">Ces quatre taux servent à construire la courbe française du simulateur. Le change euro–dollar constitue la cinquième série quotidienne ; l’écart France–Allemagne utilise deux séries mensuelles distinctes.</p><div id="starting-curve-values" class="starting-curve-values" aria-live="polite"></div></details>
+
+      <details id="market-context"><summary>Explorer les taux, les devises et le stress financier observés</summary>
+    <section id="contexte" class="context-section" aria-labelledby="context-heading">
+      <div class="section-kicker"><div><p class="eyebrow">Les observations · BCE</p><h2 id="context-heading">Les marchés dans leur contexte réel.</h2></div></div>
+      <p class="muted">Stress financier, taux européens et devises : sélectionnez une carte pour explorer son historique. Les chiffres ci-dessous sont observés ; les résultats du simulateur restent conditionnels.</p>
+      <div id="context-cards" class="context-cards" role="group" aria-label="Choisir un indicateur observé"></div>
+      <p id="context-status" data-loading="true" aria-busy="true" class="small muted" role="status">Connexion aux observations de la BCE…</p>
+      <div class="chart-panel context-explorer"><div class="panel-title"><h3 id="context-chart-title">Stress financier · zone euro</h3><div class="context-tools"><label for="context-range">Historique <select id="context-range"><option value="1">1 an</option><option value="5">5 ans</option></select></label><label id="context-compare-wrap" class="check"><input type="checkbox" id="context-compare" checked> Comparer</label></div></div>
+        <div class="legend"><span id="context-current-key" class="legend-scenario">Zone euro</span><span id="context-comparison-key" class="legend-reference" hidden></span></div>
+        <div id="context-chart" class="chart"></div><p id="context-insight" class="context-insight"></p>
+        <div class="context-bottom"><a id="context-source" href="https://data.ecb.europa.eu/" target="_blank" rel="noopener" class="quiet-link">Consulter la source BCE</a><button id="context-apply" class="button" hidden>Rejouer la variation des taux</button></div><p id="context-apply-note" class="small muted" role="status"></p>
+      </div>
+    </section>
+      </details>
+      <div class="profiles-heading"><div><p class="eyebrow">Choisir une hypothèse</p><h3>Six points de départ, tous modifiables.</h3></div></div>
+      <div id="scenario-options" class="scenario-options" role="group" aria-label="Choisir un scénario"></div>
+      <div id="scenario-editing">
+        <div class="scenario-workspace">
+          <aside class="scenario-panel" aria-label="Paramètres du scénario"><label class="field-label" for="preset">Scénario retenu</label><select id="preset"></select><p id="preset-description" class="muted"></p>
+        <div id="scenario-controls"></div>
+        <div class="policy-choices"><span class="field-label">Issue budgétaire après la présidentielle</span><div role="group" aria-label="Hypothèses budgétaires"><button data-fiscal="-35">Trajectoire crédible</button><button data-fiscal="15">Compromis fragile</button><button data-fiscal="60">Blocage durable</button></div><p class="small muted">Choisissez un effet économique présumé. Aucune probabilité ni préférence de candidat n’est attribuée.</p></div>
+        <details class="advanced"><summary>Affiner le change et la transmission</summary><div id="advanced-controls"></div><p class="small muted">Les sensibilités sont des hypothèses modifiables. Elles ne sont pas ajustées statistiquement aux résultats électoraux ou aux manifestations.</p><div id="parameter-controls"></div></details>
+          </aside>
+          <aside class="hypothesis-card" aria-label="Résumé de vos hypothèses">
+            <p class="eyebrow">Votre hypothèse</p><h3 id="hypothesis-name">—</h3><p id="hypothesis-description" class="muted"></p>
+            <div class="hypothesis-metrics">
+              <article data-help="Somme de la prime sociale modélisée et du choc budgétaire saisi. Elle s’ajoute aux taux communs ; ce n’est pas un taux de marché observé."><span>Prime France ajoutée</span><strong id="hypothesis-premium">—</strong><small>social + budgétaire</small></article>
+              <article data-help="Choc commun à la courbe des taux européens, avant les primes propres à chaque pays."><span>Taux communs</span><strong id="hypothesis-rates">—</strong><small>choc saisi</small></article>
+              <article><span>Propagation européenne</span><strong id="hypothesis-contagion">—</strong><small>intensité de transmission</small></article>
+              <article data-help="Durée conventionnelle de mise en place graduelle du choc. Le modèle ne valorise ni portage ni passage du temps."><span>Horizon du scénario</span><strong id="hypothesis-horizon">—</strong><small>sans portage</small></article>
+            </div>
+            <p id="scenario-brief">Ces hypothèses décrivent un environnement possible. Leur effet sur votre portefeuille sera calculé à l’étape suivante.</p>
+          </aside>
+        </div>
+        <div class="step-actions"><div class="step-context"><strong>Vos réglages actualisent l’analyse automatiquement.</strong><p id="scenario-feedback" role="status">Choisissez un scénario ou ajustez une hypothèse pour afficher ses effets.</p></div><a class="button secondary" href="#analyse" data-return="analyse">Voir mon analyse <span aria-hidden="true">↓</span></a></div>
+      </div>
+    </section>
+    <section class="journey-step" id="analyse" aria-labelledby="analysis-title">
+      <div class="section-kicker"><div><p class="eyebrow">03 / Votre analyse</p><h2 id="analysis-title">Vos choix. Leurs effets.</h2></div><div class="toolbar" id="analysis-toolbar" hidden><button class="button" id="pin">Garder pour comparer</button><button class="button" id="share">Copier le lien</button><button class="button" id="export" disabled>Exporter l’analyse</button></div></div>
+      <div id="analysis-empty"><h3>Quel effet aurait votre scénario ?</h3><p id="analysis-empty-description">Votre portefeuille Modéré est prêt. Choisissez une hypothèse dans « Votre scénario », ou ajustez ses paramètres : les résultats apparaîtront ici automatiquement.</p></div>
+      <div id="analysis-live" hidden>
+      <div class="analysis-intro"><div><span class="eyebrow">Scénario retenu</span><h3 id="scenario-name">—</h3><p id="scenario-summary"></p></div></div>
+      <div class="analysis-context"><span id="analysis-portfolio"></span><span id="portfolio-scenario"></span><button class="button" data-return="portefeuille">Modifier le portefeuille</button><button class="button" data-return="simulation">Ajuster le scénario</button></div>
+      <p id="action-status" class="small" role="status"></p><p id="analysis-status" class="small muted" role="status"></p>
+      <div id="analysis-content">
+        <div class="analysis-metrics" aria-live="polite">
+          <article><span>Impact sur votre capital</span><strong id="portfolio-pnl" class="portfolio-headline">—</strong><small id="portfolio-pct">—</small></article>
+          <article><span>Valeur après le choc</span><strong id="portfolio-value">—</strong><small>Revalorisation à composition constante</small></article>
+          <article><span>France 10 ans · scénario</span><strong id="target-oat">—</strong><small id="target-oat-delta">En attente du point de départ</small></article>
+        </div>
+        <div id="comparison-note" class="comparison-note" hidden></div>
+        <div class="analysis-grid">
+          <section class="chart-panel"><div class="panel-title"><div><p class="eyebrow">Votre portefeuille</p><h3 data-help="Chaque barre indique la contribution d’une position au rendement total, en points de pourcentage. Survolez-la pour voir son poids et son impact monétaire.">D’où vient le résultat ?</h3></div></div><p class="small muted">Contribution au rendement · points de %</p><div id="attribution-chart"></div></section>
+          <section class="chart-panel"><div class="panel-title"><div><p class="eyebrow">Les mécanismes de transmission</p><h3>Ce qui explique le mouvement.</h3></div></div><div class="hypothesis-metrics"><article data-help="La prime française cumule les composantes sociale et budgétaire du scénario, avant les taux communs."><span>Prime France</span><strong id="scenario-premium">—</strong><small>social + budgétaire</small></article><article><span>EUR/USD · scénario</span><strong id="target-fx">—</strong><small id="target-fx-delta">—</small></article></div><p class="small muted">La hausse des rendements réduit la valeur des obligations. Les actions réagissent aux primes de risque, aux taux et à l’énergie selon les sensibilités retenues. Le change agit sur vos expositions en dollars non couvertes.</p></section>
+        </div>
+        <div class="market-analysis">
+        <section class="chart-panel"><div class="panel-title"><div><span class="eyebrow">Taux / France</span><h3 data-help="La courbe observée compare les taux d’emprunt français à 2, 5, 10 et 30 ans, à date commune. La courbe du scénario combine le choc commun et une prime France modulée selon la maturité.">La courbe change de forme.</h3></div><div class="legend"><span class="legend-observed">Observé</span><span class="legend-scenario">Scénario</span><span class="legend-reference" id="comparison-legend" hidden>Comparaison</span></div></div><div id="yield-chart" class="chart"></div><p id="curve-caption" class="small muted"></p></section>
+        <section class="chart-panel"><div class="panel-title"><div><span class="eyebrow">Transmission / Europe</span><h3 data-help="La contagion transmet une fraction du risque français à l’Italie. Le modèle permet aussi un effet de refuge sur les taux allemands.">Du risque français aux autres souverains.</h3></div></div><div class="transmission-flow" aria-hidden="true"><span>Prime France <b id="local-risk">—</b></span><span class="flow-arrow">→</span><span>Propagation <b id="contagion-level">—</b></span><span class="flow-arrow">→</span><span>Écarts de taux</span></div><div id="country-grid" class="country-grid"></div><p class="small muted">Comparaison sur les taux de convergence mensuels, à date commune, fournis par Webstat ou directement par la BCE. Le taux d’emprunt français quotidien à 10 ans et ces moyennes mensuelles sont deux références distinctes.</p></section>
+        <section class="chart-panel"><div class="panel-title"><div><span class="eyebrow">Actions / Change / Matières premières</span><h3 data-help="Les rendements sont calculés à partir des sensibilités de scénario. Les cotations absentes restent en base 100 ; une valeur simulée n’est pas une observation.">Des réactions différentes à un même choc.</h3></div></div><div id="market-bars"></div><p class="small muted">Variations conditionnelles, depuis une base 100. Les cotations du bandeau mondial sont affichées par TradingView ; elles ne sont pas extraites du widget pour calculer ces scénarios. Une cotation API est utilisée seulement si sa série est identifiée. Les expositions américaines et l’or ci-dessous sont exprimés en euros, selon votre choix de couverture.</p><div id="quote-status" class="quote-status" data-loading="true" aria-busy="true"></div></section>
+        </div>
+        <details id="trajectory-details" class="trajectory-details"><summary>Explorer la mise en place graduelle du choc</summary><h3>Votre portefeuille, du point de départ au choc final.</h3><p class="small muted">Base 100 · horizon conventionnel en mois. Cette trajectoire illustre une progression lissée du choc ; elle ne prévoit pas l’évolution future des marchés. Sans passage du temps, coupons encaissés, dividendes, frais ni fiscalité.</p><div id="portfolio-chart" class="chart"></div></details>
+    <section class="history-section" aria-labelledby="history-heading">
+      <div class="section-kicker"><div><p class="eyebrow">Situer l’amplitude du scénario</p><h2 id="history-heading">Ce choc est-il grand par rapport à l’historique ?</h2></div></div>
+      <div class="history-layout">
+        <div class="history-distribution"><div class="history-chart-heading"><h3>Taux d’emprunt français à 10 ans</h3><div class="history-legend"><span class="history-observed-key">Mouvements observés</span><span class="history-scenario-key">Votre scénario</span></div></div><div id="history-chart" class="chart"></div><p id="history-caption" class="small muted"></p></div>
+        <aside class="history-reference"><p class="eyebrow">Repère historique</p><strong id="history-percentile">—</strong><h3>95e percentile des amplitudes</h3><p id="history-insight" class="muted">L’historique observé donnera un ordre de grandeur au choc simulé.</p><a class="quiet-link" href="#sources-modele">Consulter les sources du modèle</a></aside>
+      </div>
+    </section>
+      </div>
+      <div class="step-actions"><p class="step-context">Pour lire les résultats en détail, retrouvez les équations, les hypothèses et les dates de chaque source.</p><a class="button secondary" href="#methode">Comprendre la méthode <span aria-hidden="true">↓</span></a></div>
+      </div>
+    </section>
+    <section class="method-section model-method" id="methode" aria-labelledby="method-title">
+      <div class="method-intro"><p class="eyebrow">Méthode &amp; sources</p><h2 id="method-title">Comprendre le modèle, de la donnée au résultat.</h2><p class="muted">Chaque simulation combine un point de départ observé, des hypothèses que vous choisissez et des règles de transmission explicites. Voici comment ces trois dimensions produisent la revalorisation de votre portefeuille.</p></div>
+      <div class="method-reading-key" aria-label="Distinguer observations, hypothèses et résultats">
+        <article><span class="method-kind observed">Observé</span><h3>Le point de départ</h3><p>Taux, devises et indicateurs de stress reçus des fournisseurs, avec leur date d’observation et leur source.</p></article>
+        <article><span class="method-kind assumed">Hypothèse</span><h3>Votre environnement de marché</h3><p>Durée des tensions, propagation, choc budgétaire, taux communs, énergie et crédit : des paramètres modifiables.</p></article>
+        <article><span class="method-kind calculated">Calculé</span><h3>La variation conditionnelle</h3><p>Les prix et contributions issus du modèle sous vos hypothèses, à composition constante.</p></article>
+      </div>
+      <section class="method-block" aria-labelledby="method-transmission-title"><div class="method-block-heading"><span>Le mécanisme</span><h3 id="method-transmission-title">Comment le choc se transmet.</h3></div>
+        <div class="method-flow" aria-label="Chaîne de calcul"><span>Hypothèses économiques</span><i aria-hidden="true">→</i><span>Taux, primes et change</span><i aria-hidden="true">→</i><span>Revalorisation des actifs</span><i aria-hidden="true">→</i><span>Impact du portefeuille</span></div>
+        <div class="method-grid">
+          <article><h4>Prime France et souverains</h4><p>La prime sociale augmente avec la durée et l’intensité des perturbations, puis se sature. Une prime budgétaire s’y ajoute. Le mouvement commun des taux se combine avec les effets propres à la France, à l’Allemagne et à l’Italie, modulés par la propagation retenue.</p><p id="decomposition" class="formula"></p></article>
+          <article><h4>Obligations et crédit</h4><p>Chaque obligation est synthétique et initialement au pair : son coupon est égal au rendement de départ. Tous les flux sont actualisés au rendement stressé. Le crédit IG et HY utilise le taux français à 5 ans et des spreads initiaux hypothétiques, modifiables dans les paramètres avancés.</p><p class="method-note">Une hausse du rendement de marché réduit généralement la valeur de l’obligation ; le rendement de marché et sa performance sont deux mesures différentes.</p></article>
+          <article><h4>Actions, or et dollar</h4><p>Les variations conditionnelles des actions et de l’or dépendent de sensibilités explicites aux primes de risque, aux taux et à l’énergie. Les expositions américaines et l’or sont convertis en euros. Une couverture complète neutralise la variation du change, sans coût de couverture dans le modèle.</p><p class="method-note">Les sensibilités sont des hypothèses de travail ; elles ne sont pas estimées à partir d’un résultat électoral ou d’une manifestation.</p></article>
+        </div>
+      </section>
+      <section class="method-block" aria-labelledby="method-portfolio-title"><div class="method-block-heading"><span>La mesure</span><h3 id="method-portfolio-title">Du rendement des positions au résultat en euros.</h3></div>
+        <div class="method-measures">
+          <article><h4>La contribution d’un actif</h4><p>Son poids est multiplié par son rendement de scénario. Les contributions s’additionnent pour former le rendement du portefeuille ; le capital investi le transforme en gain ou perte en euros.</p><p class="method-formula">Contribution = poids × rendement<br>Impact en euros = capital × rendement du portefeuille</p></article>
+          <article><h4>Le repère historique</h4><p>L’histogramme compare le choc français à des variations sur 20 observations glissantes, dans la dernière année reçue. Les fenêtres se chevauchent. Le 95e percentile décrit l’amplitude des mouvements passés ; il n’attribue aucune probabilité au scénario futur.</p><p class="method-note">L’horizon du scénario peut différer de celui des fenêtres historiques.</p></article>
+        </div>
+        <details class="method-equations"><summary>Lire les équations et les sensibilités actuellement utilisées</summary><p class="small muted">Les coefficients ci-dessous reflètent vos paramètres, y compris les ajustements avancés.</p><div id="equations" class="equations"></div></details>
+      </section>
+      <section class="method-block" id="sources-modele" aria-labelledby="sources-title"><div class="method-block-heading"><span>La provenance</span><h3 id="sources-title">Des observations sourcées, avec leur date propre.</h3></div>
+        <div class="method-sources">
+          <article><h4>Banque de France · Webstat</h4><p>Taux d’emprunt français à 2, 5, 10 et 30 ans, change euro–dollar et références souveraines mensuelles. La courbe française compare les échéances à date commune ; le change conserve sa date propre.</p><a href="https://webstat.banque-france.fr/" target="_blank" rel="noopener noreferrer">Consulter Webstat ↗</a></article>
+          <article><h4>BCE · accès direct</h4><p>Stress financier CISS, taux zéro coupon AAA, livre sterling et yen. La BCE complète également les références souveraines mensuelles lorsque les observations Webstat sont vides.</p><a href="https://data.ecb.europa.eu/" target="_blank" rel="noopener noreferrer">Consulter le portail BCE ↗</a></article>
+          <article><h4>DBnomics · relais de secours</h4><p>Si la connexion directe au contexte BCE échoue, la même série est recherchée via DBnomics. La source réellement utilisée et la dernière observation reçue restent visibles ; le relais peut présenter un décalage de mise à jour.</p><a href="https://db.nomics.world/ECB" target="_blank" rel="noopener noreferrer">Consulter les séries BCE relayées ↗</a></article>
+          <article><h4>TradingView · bandeau de cotations</h4><p>Le bandeau affiche les cotations disponibles chez TradingView, avec les délais propres aux places. US 500 et US 100 sont identifiés comme CFD. Ces cours ne sont pas extraits du widget pour calculer les résultats.</p><a href="https://fr.tradingview.com/markets/indices/" target="_blank" rel="noopener noreferrer">Consulter les instruments ↗</a></article>
+        </div>
+        <div class="source-register"><h4>Observations effectivement reçues pour cette session</h4><p class="small muted">Chaque ligne indique la série utilisée, sa fréquence, sa source et sa dernière observation disponible. Les dates d’observation peuvent différer selon les séries.</p><div class="table-wrap"><table><thead><tr><th>Série et lien source</th><th>Fréquence / fournisseur</th><th>Dernière observation</th><th>Identifiant de référence</th></tr></thead><tbody id="source-table"></tbody></table></div></div>
+        <p class="method-note">Les allocations types reprennent des ratios actions / obligations inspirés des <a href="https://investor.vanguard.com/investment-products/mutual-funds/life-strategy-funds" target="_blank" rel="noopener noreferrer">gammes LifeStrategy de Vanguard</a>. Les positions ont été adaptées au périmètre du simulateur : elles ne reproduisent pas un fonds commercialisé et ne disposent pas de SRI réglementaire attribué.</p>
+      </section>
+      <section class="method-block method-scope" aria-labelledby="method-scope-title"><div class="method-block-heading"><span>Le périmètre</span><h3 id="method-scope-title">Les conventions à garder en tête.</h3></div><ul><li><strong>Revalorisation isolée.</strong> Sans passage du temps, coupons encaissés, dividendes, frais, fiscalité ou coût de couverture. La trésorerie conserve sa valeur.</li><li><strong>Trajectoire conventionnelle.</strong> La progression graduelle illustre une mise en place lissée du choc ; elle ne prévoit pas le calendrier des marchés.</li><li><strong>Données manquantes visibles.</strong> Les positions qui nécessitent une référence absente bloquent la valorisation du portefeuille. Les variations actions restent en base 100 lorsqu’aucune cotation API exploitable n’est reçue.</li><li><strong>Comparaison à point de départ commun.</strong> Les scénarios conservés sont recalculés sur les mêmes observations de départ, avec leurs propres hypothèses et compositions.</li><li><strong>Scénarios conditionnels.</strong> Aucune probabilité électorale, sociale ou de performance n’est attribuée. Les résultats ne constituent pas une recommandation d’achat ou de vente.</li></ul></section>
+      <div class="method-open-source"><div><p class="open-source-eyebrow">Code public · Licence MIT</p><h3>À utiliser. À modifier. À réutiliser.</h3><p>Le code du simulateur est open source : vous pouvez l’étudier, le modifier et le redistribuer, y compris dans un projet commercial. Conservez la notice de copyright et la licence MIT dans les copies ou parties substantielles du code.</p><p class="license-detail">Le logiciel est fourni sans garantie. Les données, marques et composants externes conservent leurs conditions propres. <a href="https://github.com/OmarELADLOUNI/simulateur-chocs-portefeuille/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Lire la licence MIT ↗</a></p></div><a class="github-link" href="https://github.com/OmarELADLOUNI/simulateur-chocs-portefeuille" target="_blank" rel="noopener noreferrer"><svg class="github-logo" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg><span>Voir le projet sur GitHub</span></a></div>
+    </section>
+  </main>
+  <footer class="market-footer"><div class="footer-identity"><span>Omar EL ADLOUNI · Basé à Paris</span><a class="footer-contact" href="https://www.linkedin.com/in/omar-el-adlouni/" target="_blank" rel="noopener noreferrer">Contact</a></div><span class="footer-data">Banque de France · BCE · DBnomics · TradingView</span><a class="github-link footer-source" href="https://github.com/OmarELADLOUNI/simulateur-chocs-portefeuille" target="_blank" rel="noopener noreferrer"><svg class="github-logo" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg><span>Code source</span></a></footer>
+</body>
+</html>

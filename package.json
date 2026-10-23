@@ -1,0 +1,22 @@
+{
+  "name": "simulateur-chocs-portefeuille",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Simulateur de scénarios de marché et de revalorisation de portefeuille, par Omar EL ADLOUNI.",
+  "author": "Omar EL ADLOUNI",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && npx netlify-cli dev --port 8888 --no-open",
+    "preview": "npx netlify-cli deploy --build --context deploy-preview",
+    "integrate-site": "node scripts/integrate-site.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OmarELADLOUNI/simulateur-chocs-portefeuille.git"
+  }
+}

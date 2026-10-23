@@ -1,0 +1,9 @@
+// Identifiants officiels autorisés, communs aux fournisseurs.
+export const SERIES = Object.freeze({
+  stress_euro: { key: 'ECB/CISS/D.U2.Z0Z.4F.EC.SS_CIN.IDX', label: 'Stress financier · zone euro', unit: 'indice de 0 à 1', category: 'stress', frequency: 'daily', digits: 3, note: 'Nouveau CISS : tensions conjointes des marchés financiers. Ce niveau ne mesure pas une probabilité de crise.' },
+  stress_us: { key: 'ECB/CISS/D.US.Z0Z.4F.EC.SS_CIN.IDX', label: 'Stress financier · États-Unis', unit: 'indice de 0 à 1', category: 'stress', frequency: 'daily', digits: 3, note: 'Nouveau CISS américain calculé par la BCE ; permet de comparer les tensions des deux zones à date commune.' },
+  aaa2: { key: 'ECB/YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_2Y', label: 'Zone euro AAA · taux spot 2 ans', unit: '%', category: 'rates', frequency: 'daily', digits: 2, note: 'Taux zéro coupon estimé par la BCE, capitalisation continue. Ce n’est ni un taux français ni le rendement total d’un portefeuille.' },
+  aaa10: { key: 'ECB/YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y', label: 'Zone euro AAA · taux spot 10 ans', unit: '%', category: 'rates', frequency: 'daily', digits: 2, note: 'Référence européenne de taux zéro coupon AAA. La pente 10 ans − 2 ans est calculée à date commune.' },
+  eurgbp: { key: 'ECB/EXR/D.GBP.EUR.SP00.A', label: 'Euro / livre sterling', unit: 'GBP pour 1 EUR', category: 'fx', frequency: 'daily', digits: 4, note: 'Taux de référence : une hausse signifie un euro plus fort face à la livre. Ne représente pas un cours exécutable.' },
+  eurjpy: { key: 'ECB/EXR/D.JPY.EUR.SP00.A', label: 'Euro / yen', unit: 'JPY pour 1 EUR', category: 'fx', frequency: 'daily', digits: 2, note: 'Taux de référence : une hausse signifie un euro plus fort face au yen. Donnée de contexte, sans transmission automatique aux actions japonaises.' },
+});

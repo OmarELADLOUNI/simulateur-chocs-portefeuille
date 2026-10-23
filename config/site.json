@@ -1,0 +1,12 @@
+{
+  "url": "https://omareladlouni.com",
+  "name": "Portfolio Stress Test",
+  "language": "fr-FR",
+  "simulatorPath": "/simulateur-chocs-portefeuille/",
+  "linkedin": "https://www.linkedin.com/in/omar-el-adlouni/",
+  "github": "https://github.com/OmarELADLOUNI/simulateur-chocs-portefeuille",
+  "simulatorTitle": "Portfolio Stress Test | Chocs de portefeuille — Omar EL ADLOUNI",
+  "simulatorDescription": "Simulez les effets de chocs sur votre portefeuille : taux, actions, crédit et devises. Données Banque de France et BCE. Outil gratuit et code open source MIT.",
+  "simulatorName": "Portfolio Stress Test",
+  "author": "Omar EL ADLOUNI"
+}

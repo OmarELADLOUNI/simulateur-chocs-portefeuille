@@ -1,0 +1,23 @@
+# Dépendances et fichiers générés
+node_modules/
+dist/
+coverage/
+*.log
+
+# Configuration locale et secrets
+.env
+.env.*
+!.env.example
+.netlify/
+*.pem
+*.key
+
+# Éditeurs et système
+.DS_Store
+.idea/
+.vscode/
+Thumbs.db
+
+# Le site personnel reste hors du dépôt du simulateur
+integration/
+design/
