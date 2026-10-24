@@ -68,7 +68,7 @@ export function createHandler({ fetcher = fetch, getKey = () => process.env.WEBS
   }
   const reply = (body, status = 200, extra = {}) => Response.json(body, {
     status,
-    headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", ...extra },
+    headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "X-Robots-Tag":"noindex", "Cross-Origin-Resource-Policy":"same-origin", ...extra },
   });
 
   return async request => {
@@ -76,7 +76,7 @@ export function createHandler({ fetcher = fetch, getKey = () => process.env.WEBS
     const params = new URL(request.url).searchParams;
     const id = params.get("series") || "tec10";
     const range = params.get("range") || "1y";
-    if (!Object.hasOwn(SERIES, id) || !Object.hasOwn(PERIODS, range)
+    if (params.toString().length>256 || [...params.keys()].length!==new Set(params.keys()).size || !Object.hasOwn(SERIES, id) || !Object.hasOwn(PERIODS, range)
       || [...params.keys()].some(k => !["series", "range"].includes(k))) {
       return reply({ error: "Série ou période non autorisée." }, 400);
     }
@@ -169,3 +169,5 @@ function cacheHeaders() {
 }
 
 export default createHandler();
+
+export const config={rateLimit:{windowLimit:60,windowSize:60,aggregateBy:['ip','domain']}};

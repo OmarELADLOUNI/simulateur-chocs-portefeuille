@@ -25,12 +25,13 @@ export function createHandler({ fetcher = fetch, now = () => new Date() } = {}) 
   const cache = new Map(), pending = new Map();
   const reply = (body, status = 200) => Response.json(body, { status, headers: status === 200 ? {
     'Cache-Control': 'public, max-age=60',
+    'X-Content-Type-Options':'nosniff', 'X-Robots-Tag':'noindex', 'Cross-Origin-Resource-Policy':'same-origin',
     'Netlify-CDN-Cache-Control': `public, s-maxage=${body.fallback ? 300 : 3600}, durable`,
-  } : { 'Cache-Control': 'no-store' } });
+  } : { 'Cache-Control': 'no-store', 'X-Content-Type-Options':'nosniff', 'X-Robots-Tag':'noindex' } });
   return async request => {
     if (request.method !== 'GET') return reply({ error: 'Méthode non autorisée.' }, 405);
     const params = new URL(request.url).searchParams, id = params.get('series'), range = params.get('range') || '5y';
-    if (!Object.hasOwn(SERIES, id || '') || !['1y', '5y'].includes(range) || [...params.keys()].some(k => !['series', 'range'].includes(k))) return reply({ error: 'Série ou période non autorisée.' }, 400);
+    if (params.toString().length>256 || [...params.keys()].length!==new Set(params.keys()).size || !Object.hasOwn(SERIES, id || '') || !['1y', '5y'].includes(range) || [...params.keys()].some(k => !['series', 'range'].includes(k))) return reply({ error: 'Série ou période non autorisée.' }, 400);
     const definition = SERIES[id], key = `${id}:${range}`, today = now(), existing = cache.get(key);
     if (existing?.expires > today.getTime()) return reply(existing.payload);
     if (!pending.has(key)) pending.set(key, (async () => {
@@ -62,3 +63,5 @@ export function createHandler({ fetcher = fetch, now = () => new Date() } = {}) 
   };
 }
 export default createHandler();
+
+export const config={rateLimit:{windowLimit:60,windowSize:60,aggregateBy:['ip','domain']}};
