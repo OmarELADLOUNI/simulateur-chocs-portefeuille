@@ -86,7 +86,7 @@ export async function initContext(addSource, applyShock) {
     let payload;
     if (snapshot) payload = snapshot.series[id];
     else {
-      const response = await fetch(`/.netlify/functions/ecb?series=${id}&range=5y`, { signal: AbortSignal.timeout(30000) });
+      const response = await fetch(`/api/market-data/ecb?series=${id}&range=5y`, { signal: AbortSignal.timeout(30000) });
       if (!response.ok) throw new Error('Unavailable'); payload = await response.json();
     }
     if (!payload?.observations?.length) throw new Error('No observations');

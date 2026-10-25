@@ -322,7 +322,7 @@ async function load(id, range = "1y") {
     if (payload.tenor) payload.label = `France · Taux d’emprunt à ${payload.tenor} ans`;
     data.sources.push(payload); return payload;
   }
-  const response = await fetch(`/.netlify/functions/webstat?${new URLSearchParams({ series: id, range })}`, { signal: AbortSignal.timeout(20000) });
+  const response = await fetch(`/api/market-data/webstat?${new URLSearchParams({ series: id, range })}`, { signal: AbortSignal.timeout(20000) });
   const payload = await response.json().catch(() => null);
   if (!response.ok || !payload?.observations?.length) throw new Error(payload?.error || "Les données ne sont pas disponibles dans cet environnement.");
   if (payload.tenor) payload.label = `France · Taux d’emprunt à ${payload.tenor} ans`;
@@ -368,7 +368,9 @@ async function loadData() {
 
 function compositionError() {
   const amount = $('amount');
-  if (amount.value === '' || !amount.validity.valid || !Number.isFinite(amount.valueAsNumber)) return 'Saisissez un capital compris entre 1 000 € et 1 milliard d’euros.';
+  const invalidAmount=amount.value === '' || !amount.validity.valid || !Number.isFinite(amount.valueAsNumber);
+  if(invalidAmount)amount.setAttribute('aria-invalid','true');else amount.removeAttribute('aria-invalid');
+  if (invalidAmount) return 'Saisissez un capital compris entre 1 000 € et 1 milliard d’euros.';
   if (ASSETS.some(a => { const input = $(`weight-number-${a.id}`); return input.value === '' || !input.validity.valid || !Number.isFinite(input.valueAsNumber); })) return 'Vérifiez les allocations : chaque pourcentage doit être compris entre 0 et 100.';
   const total = ASSETS.reduce((sum, a) => sum + state.weights[a.id], 0);
   if (Math.abs(total - 100) >= .01) return `Allocation : ${num(total, 2)} %. Le total doit être égal à 100 %.`;

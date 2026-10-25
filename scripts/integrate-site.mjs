@@ -1,4 +1,4 @@
-import { cp, readFile, realpath, stat, writeFile, mkdir } from 'node:fs/promises';
+import { cp, readFile, realpath, stat, writeFile, mkdir, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,9 +24,11 @@ await writeFile(path.join(market, 'index.html'), html);
 for (const directory of ['assets', 'content']) {
   await cp(path.join(root, directory), path.join(market, directory), { recursive: true });
 }
-for (const name of ['webstat.mjs', 'ecb.mjs', 'dbnomics.mjs']) {
+// Retirer les anciens points d’entrée afin d’éviter un contournement du quota.
+for (const name of ['webstat.mjs','ecb.mjs','dbnomics.mjs']) await rm(path.join(site,'netlify/functions',name),{force:true});
+for (const name of ['market-data.mjs']) {
   await cp(path.join(root, 'netlify/functions', name), path.join(site, 'netlify/functions', name));
 }
 await mkdir(path.join(site, 'netlify/lib'), { recursive: true });
-await cp(path.join(root, 'netlify/lib/market-series.mjs'), path.join(site, 'netlify/lib/market-series.mjs'));
+for (const name of ['market-series.mjs','ecb.mjs','webstat.mjs']) await cp(path.join(root,'netlify/lib',name),path.join(site,'netlify/lib',name));
 console.log('Portfolio Stress Test et ses fonctions de données ont été intégrés au site cible.');

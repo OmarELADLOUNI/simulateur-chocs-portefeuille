@@ -7,7 +7,7 @@ Navigateur → fonctions du même projet Netlify → Webstat / BCE / DBnomics
            ↘ iframe TradingView : affichage indépendant des calculs
 ```
 
-La variable `WEBSTAT_API_KEY` est lue uniquement par la fonction serveur `webstat.mjs`. La clé n’apparaît ni dans le HTML, ni dans JavaScript côté navigateur, ni dans les liens partagés ou exports. La fonction limite les séries et périodes autorisées et ne constitue pas un relais vers une URL arbitraire.
+La variable `WEBSTAT_API_KEY` est lue uniquement par la fonction serveur `webstat.mjs`. La clé n’apparaît ni dans le HTML, ni dans JavaScript côté navigateur, ni dans les liens partagés ou exports. La passerelle `market-data.mjs` protège les deux fournisseurs sur le chemin `/api/market-data/:provider`. La fonction limite les séries et périodes autorisées et ne constitue pas un relais vers une URL arbitraire.
 
 ## Références utilisées
 
@@ -30,11 +30,11 @@ Les alias actions `cac40`, `stoxx600` et `sp500` cherchent une série quotidienn
 ## Routes du serveur
 
 ```text
-/.netlify/functions/webstat?series=tec10&range=1y
-/.netlify/functions/ecb?series=aaa10&range=5y
+/api/market-data/webstat?series=tec10&range=1y
+/api/market-data/ecb?series=aaa10&range=5y
 ```
 
-Webstat autorise `1m`, `3m`, `1y` et `5y`. Le contexte BCE autorise `1y` et `5y`. Les routes servent uniquement les séries explicitement définies dans le code. L’ancienne route `dbnomics` est conservée pour compatibilité et délègue au module BCE.
+Webstat autorise `1m`, `3m`, `1y` et `5y`. Le contexte BCE autorise `1y` et `5y`. Les routes servent uniquement les séries explicitement définies dans le code. DBnomics est un relais serveur de la BCE, sans point d’entrée supplémentaire contournant la limite de débit. Les anciens chemins natifs ne sont plus déployés.
 
 Les réponses contiennent la source, l’identifiant de série, la date de récupération, les observations et la dernière observation reçue. Les dernières valeurs disponibles peuvent être décalées par rapport à la date du jour.
 

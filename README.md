@@ -2,7 +2,7 @@
 
 **Un outil interactif en français pour relier des hypothèses économiques à la valorisation d’un portefeuille.**
 
-Par [Omar EL ADLOUNI](https://www.linkedin.com/in/omar-el-adlouni/) · [Site personnel](https://omareladlouni.com/)
+Par [Omar EL ADLOUNI](https://www.linkedin.com/in/omar-el-adlouni/) · [OLM Bridge](https://olmbridge.com/)
 
 ![Aperçu du graphique de comparaison historique](docs/images/apercu-simulateur.png)
 
@@ -148,6 +148,6 @@ La construction génère les métadonnées du simulateur, sa carte de partage, u
 
 Les fonctions refusent les séries et périodes non autorisées, les paramètres répétés et les requêtes trop longues. Elles ne constituent pas un proxy vers une URL fournie par le visiteur. Les réponses sont non indexables et utilisent `nosniff`. Les réponses fournisseur brutes et la clé Webstat ne sont jamais renvoyées au navigateur.
 
-Une limite Netlify de 60 requêtes par minute, par IP et domaine, protège chaque proxy (y compris l’alias DBnomics). Le cache reste actif pour limiter les appels aux fournisseurs. Cette limite ne constitue pas un plafond financier global.
+Une règle Netlify de 60 requêtes par minute, par IP et domaine, protège la passerelle `/api/market-data/:provider`, commune aux deux fournisseurs. Son chemin est explicite ; les anciens points d’entrée natifs ne sont plus déployés. DBnomics reste un relais serveur de la BCE. Le cache reste actif pour limiter les appels aux fournisseurs. Cette limite ne constitue pas un plafond financier global.
 
 Vérification locale sans vraie clé ni appel réseau : `node --test tests/proxies-security.test.mjs`.

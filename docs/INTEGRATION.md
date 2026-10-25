@@ -13,7 +13,7 @@ npm run integrate-site -- /chemin/vers/le-site-existant
 Le dossier cible doit déjà contenir `index.html` et `netlify.toml`. Le script copie :
 
 - l’interface, `assets/` et `content/` dans la rubrique définie par `simulatorPath` dans `config/site.json` ;
-- les fonctions Webstat, BCE et DBnomics dans `netlify/functions/` ;
+- la passerelle protégée dans `netlify/functions/` et ses modules Webstat/BCE dans `netlify/lib/` ;
 - le catalogue des séries autorisées dans `netlify/lib/`.
 
 Les liens vers le site de l’auteur sont adaptés à une navigation relative. Le script ne copie pas l’accueil, les autres rubriques, la configuration globale, les statistiques ou les scripts de construction du site cible. Une intégration ne réimporte jamais les sources du site cible dans ce dépôt.

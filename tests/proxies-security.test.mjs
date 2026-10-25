@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createHandler as ecb,config as ecbConfig} from '../netlify/functions/ecb.mjs';
-import {createHandler as webstat,config as webstatConfig} from '../netlify/functions/webstat.mjs';
+import {createHandler as ecb} from '../netlify/lib/ecb.mjs';
+import handler,{config} from '../netlify/functions/market-data.mjs';
+import {createHandler as webstat} from '../netlify/lib/webstat.mjs';
 
 test('Les proxies refusent les paramètres inconnus, répétés et trop longs sans appel réseau',async()=>{
   for(const factory of [ecb,webstat]){
@@ -14,8 +15,10 @@ test('Les proxies refusent les paramètres inconnus, répétés et trop longs sa
   }
 });
 
-test('Les quotas sont définis par IP et domaine pour les deux fournisseurs',()=>{
-  for(const config of [ecbConfig,webstatConfig]){
+test('La passerelle applique un quota par IP et domaine sur un chemin explicite',async()=>{
+  assert.equal(config.path,'/api/market-data/:provider');
+  assert.equal((await handler(new Request('https://example.invalid/.netlify/functions/market-data'))).status,404);
+  {
     assert.equal(config.rateLimit.windowLimit,60);assert.equal(config.rateLimit.windowSize,60);
     assert.deepEqual(config.rateLimit.aggregateBy,['ip','domain']);
   }

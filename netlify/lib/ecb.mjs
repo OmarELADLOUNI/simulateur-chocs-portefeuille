@@ -1,4 +1,4 @@
-import { SERIES } from '../lib/market-series.mjs';
+import { SERIES } from './market-series.mjs';
 export { SERIES };
 
 function csvRows(csv) {
@@ -63,5 +63,3 @@ export function createHandler({ fetcher = fetch, now = () => new Date() } = {}) 
   };
 }
 export default createHandler();
-
-export const config={rateLimit:{windowLimit:60,windowSize:60,aggregateBy:['ip','domain']}};
