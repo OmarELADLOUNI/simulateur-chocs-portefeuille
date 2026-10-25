@@ -54,6 +54,12 @@
     document.body.append(banner);
   }
   document.querySelectorAll('[data-audience-preferences]').forEach(button => button.addEventListener('click',preferences));
+  addEventListener('storage',event=>{
+    if(event.key!==key&&event.key!==null)return;
+    allowed=false;
+    if(choice()==='yes')start();
+    else if(choice()===null)preferences();
+  });
   if (!configured) return;
   if (choice()==='yes') start(); else if (choice()===null && !navigator.globalPrivacyControl && navigator.doNotTrack!=='1') preferences();
   ['pointerdown','keydown','scroll','touchstart'].forEach(name => addEventListener(name,()=>{ lastAction=Date.now(); },{passive:true}));

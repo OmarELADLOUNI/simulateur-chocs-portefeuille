@@ -19,7 +19,7 @@ const market = path.resolve(site, `.${settings.simulatorPath}`);
 if (!market.startsWith(`${site}${path.sep}`) || market === site) throw new Error('La rubrique doit être un sous-dossier du site cible.');
 await mkdir(market, { recursive: true });
 const html = (await readFile(path.join(root, 'index.html'), 'utf8'))
-  .replaceAll('https://omareladlouni.com/', '../');
+  .replaceAll(settings.url.replace(/\/$/, '')+'/', '../');
 await writeFile(path.join(market, 'index.html'), html);
 for (const directory of ['assets', 'content']) {
   await cp(path.join(root, directory), path.join(market, directory), { recursive: true });
